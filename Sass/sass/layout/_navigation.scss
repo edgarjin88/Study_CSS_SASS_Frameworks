@@ -1,0 +1,201 @@
+.navigation{
+   &__checkbox {
+    display:none; 
+    // checkbox always display none!
+   }
+
+   &__button{ 
+     background-color: $color-white;
+     height: 7rem; 
+     width: 7rem; 
+     position: fixed; 
+     top: 6rem; 
+     right: 6rem; 
+     border-radius: 50%;
+     z-index:2000;
+     text-align: center;
+
+     box-shadow: 0 1rem 3rem rgba($color-black, .1);
+
+     cursor: pointer; 
+
+     @include respond(tab-port){
+      top: 4rem;
+      right: 4rem;
+     }
+
+     @include respond(phone){
+      top: 3rem;
+      right: 3rem;
+     }
+     
+   }
+
+
+   &__background{
+     height: 6rem; 
+     width: 6rem; 
+     border-radius: 50%;
+     position: fixed; 
+     top: 6.5rem;
+     right: 6.5rem;
+     background-image:radial-gradient($color-primary-light, $color-primary-dark);
+     z-index: 1000; 
+     transition: transform .8s; 
+    //  transform: scale(80); 
+     //smaller than button as we want to hide it under button. 
+
+     @include respond(tab-port){
+      top: 4.5rem;
+      right: 4.5rem;
+     }
+
+     @include respond(phone){
+      top: 3.5rem;
+      right: 3.5rem;
+     }
+
+   }
+
+   &__nav{
+    height:100vh; 
+    // width: 100%; 
+    position: fixed; 
+    top: 0; 
+    left: 0; 
+    z-index:1500; 
+    opacity: 0; 
+    width: 0; 
+    transition: all .8s cubic-bezier(.31,.78,1,1.27);
+   }
+
+   &__list{
+     position: absolute; 
+     top: 50%; 
+     left: 50%; 
+     transform: translate(-50%,-50%); 
+     list-style: none; 
+     text-align: center;
+     width: 100%;
+    //  width: 0;
+   }
+
+   &__item{
+     margin: 1rem; 
+
+   }
+   
+   &__link{
+
+    &:link, 
+    &:visited{
+      // display:inline-block;
+      display:inline-block;
+      // has to be "display:none" otherwise, we can still click the invisible side even though the parent element's width was none
+      //or, this is the good example, why react + javascript, styled component is more powerful. 
+      // more interactive, and simpler than using complicate css selector. 
+      
+      // so that padding and translateX can be applied
+      font-size: 3rem;
+      font-weight: 300;
+      padding: 1rem 2rem; 
+      color: $color-white; 
+      // text-decoration: inherit;
+      text-transform: uppercase; 
+      background-image: linear-gradient(120deg, transparent 0%, transparent 50%, $color-white 50%);
+      background-size: 230%; 
+      //the reason why background-size not pushing each other? it is still confined within parents container, which is list item in this case.
+      transition: all .4s; 
+      span {
+        margin-right:1.5rem; 
+        display: inline-block
+      }
+
+     
+    }
+
+    &:hover, 
+    &:active{
+      background-position: 100%;
+      color: $color-primary; 
+      transform: translateX(-1rem); 
+    }
+
+   }
+
+   //functionality
+   &__checkbox:checked ~ &__background{
+     transform: scale(80); 
+   }
+
+   &__checkbox:checked ~ &__nav{
+    opacity:1; 
+    width:100%; 
+  }
+
+  //    &__checkbox:checked ~ &__nav > * {
+  //    display:inline-block !important
+  //  }
+
+  //icon
+
+  &__icon {
+    position: relative; 
+    margin-top: 3.5rem; 
+
+    &, 
+    &::before, 
+    &::after {
+      width: 3rem;
+      height: 2px; 
+      background-color: $color-grey-dark-3;
+      display: inline-block; 
+    }
+
+    &::before, 
+    &::after {
+      content: ""; 
+      position: absolute; 
+      left: 0; 
+      //to align. 
+      transition: all .2s; 
+      backface-visibility: hidden;
+
+    }
+
+    &::before{ top: -.8rem;}
+    &::after { top: .8rem;}
+    // Seperated from the above block to modify the space between contents. 
+  }
+
+  &__button:hover &__icon::before{
+    top: -1rem; 
+
+  }
+
+  &__button:hover &__icon::after{
+    top: 1rem; 
+  
+  }
+
+  &__checkbox:checked + &__button &__icon {
+    // + adjacent sibling
+    background-color: transparent;
+  }
+
+  &__checkbox:checked + &__button &__icon::before {
+    // + adjacent sibling
+    // transform-origin: right;  center of the rotation
+    // without origin, the center of rotation would be center. 
+    transform: rotate(135deg);
+    top: 0; 
+  }
+
+  &__checkbox:checked + &__button &__icon::after {
+    // + adjacent sibling
+    top:0; 
+    //why top 0? After rotated, the end point of the top of the elment would be the top border line of parent container. 
+    // That is why, before and after class should have the same value for top. 
+    transform: rotate(-135deg);
+  }
+}

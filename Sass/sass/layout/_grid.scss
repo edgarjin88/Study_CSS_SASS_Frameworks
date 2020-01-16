@@ -1,0 +1,77 @@
+.row{
+  @include clearfix; 
+
+  max-width: $grid-width; 
+  margin: 0 auto;
+  
+  
+  &:not(:last-child){
+    margin-bottom: $gutter-vertical;
+    // The :last-child selector allows you to target the last element directly inside its containing element.
+    // not last-child. if there is only one row element, the margin-bottom still does not apply
+    @include respond(tab-port){
+      margin-bottom: $gutter-vertical-small;        
+    }
+  }
+
+
+
+
+  @include respond(tab-port){
+    max-width: 50rem;    
+    padding: 0 3rem;  
+  }
+
+  // col inside row
+
+  // ^= start, $= ends with
+  [class^="col-"]{
+    float: left;
+    &:not(:last-child){
+      margin-right: $gutter-horizontal;
+
+
+      @include respond(tab-port){
+        margin-right: 0; 
+        margin-bottom: $gutter-vertical-small;        
+      }
+    }
+    // because of this margin-right or margin-bottom except last-child, 
+    // it is better to define in a row 
+
+    @include respond(tab-port){
+      width: 100% !important; 
+
+    }
+  }
+
+  .col-1-of-2{
+    width:calc((100% - #{$gutter-horizontal}) / 2); 
+
+  }
+
+  .col-1-of-3{
+    width:calc((100% - 2*#{$gutter-horizontal}) / 3); 
+
+  }
+  .col-2-of-3{
+    width:calc(2* ((100% - 2*#{$gutter-horizontal}) / 3) + #{$gutter-horizontal}); 
+
+  }
+
+  .col-1-of-4{
+    width:calc((100% - 3*#{$gutter-horizontal}) / 4); 
+
+  }
+
+  .col-2-of-4{
+    width:calc(2*  ((100% - 3*#{$gutter-horizontal}) / 4) + #{$gutter-horizontal}); 
+
+  }
+
+  .col-3-of-4{
+    width:calc(3*  ((100% - 3*#{$gutter-horizontal}) / 4) + 2 * #{$gutter-horizontal}); 
+    // gutter-horizontal 4개를 빼는 이유는, 한 row에서 4개의 컬럼일 경우 3개의 gutter를 가지게 되기 때문. 이중에서 2개의 gutter의 넓이를 더함. 
+
+  }
+} 

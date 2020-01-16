@@ -1,0 +1,77 @@
+@mixin clearfix{
+  &::after{
+    content:"";
+    display:table;
+    clear:both; 
+    // to make it work for both float left and right
+  }
+}
+
+
+@mixin absCenter {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%); 
+}
+
+
+//Media query manager 
+
+/*  
+
+0- 600px: phone
+600-900px: tablet portrait
+600-1200: tablet landscape
+1200-1800 is where our normal styles apply
+1800px + : Big desktop
+
+*/
+
+@mixin respond-phone {
+  @media (max-width: 600px){@content}; 
+}
+
+
+/* 
+$breakpoint argument choices: 
+-phone
+-tab-port
+-tab-land
+-big-desktop
+*/
+
+// Order: Base + typography > general layout + grid > page layout > components 
+
+@mixin respond($breakpoint){
+
+  // rem, em would not be affected by default font-size when you use media query
+  // it would be always come with default browser font size
+  // rem can be failed in some browser when u use rem. 
+  // best to use em
+
+  // 1em = 16px
+
+  @if $breakpoint == phone{
+    @media (max-width: 37.5em){@content}; // 600px only for screen size
+
+  }
+
+  @if $breakpoint == tab-port{
+    @media (max-width: 56.25em){@content}; //900px
+
+  }
+  
+  @if $breakpoint == tab-land{
+    @media (max-width: 75em){@content}; //1200px
+  }
+  
+  @if $breakpoint == big-desktop{
+    @media (min-width: 112.5em){@content}; //1800px , 1800/16
+    // min! for last break point. 
+  }
+
+
+
+
+}

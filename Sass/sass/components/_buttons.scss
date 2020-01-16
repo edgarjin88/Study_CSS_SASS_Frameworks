@@ -1,0 +1,123 @@
+
+  .btn{
+
+    &,
+    // &, to apply btn as well. button does not have link, visited. only anchor has it. 
+    &:link, 
+    &:visited {
+      text-transform: uppercase; 
+      text-decoration: none;
+      padding: 1.5rem 4rem; 
+      display: inline-block; 
+      /* a tag는 기본적으로 inline 이기 때문에 */
+      position: relative;
+      font-size: $default-font-size; 
+      border-radius:  10rem;
+      transition: all .2s;
+      /* transition은 initial state에 있어야 한다 */
+      
+      // Change for the <button> element
+      border: none; 
+      cursor: pointer;
+    }
+  
+    &:hover, 
+    &:focus 
+    // focus, hover should have the same property
+    {
+      transform: translateY(-0.3rem);
+      box-shadow: 0 1rem 2rem rgba($color-black, .2);
+      &::after{
+        transform: scale(1.2); 
+        opacity: 0; 
+      }
+    }
+  
+    &:active {
+      // use focus if you want to keep the button in a certain state after cliking it. 
+      // , &:focus
+      outline: none; 
+      transform:translateY(-0.1rem);
+      box-shadow: 0 0.5rem 1rem rgba($color-black, 0.2);
+    }
+  
+    &--white {
+      background-color:$color-white;
+      color: $color-grey-dark; 
+      &::after{
+        background-color:$color-white;
+  
+      }
+    }
+
+    &--green {
+      background-color:$color-primary;
+      color: $color-white; 
+      &::after{
+        background-color:$color-primary;
+  
+      }
+    }
+  
+  
+    &::after{
+      content:""; 
+      display: inline-block; 
+      /* has to be the same display type with original one */
+      height: 100%;; 
+      width: 100%; 
+      /* same as original property */
+      border-radius: 10rem;
+      position: absolute;
+      /* after는 일반적으로 normal flow 안에서 origin element의 다음에 온다. 
+      하지만 absolute를 사용해 버리면 그 위애 덮어 써 버린다.  */
+      top:0;
+      left:0;
+      z-index: -1;
+      transition: all .4s;
+  
+    }
+    /* after 라는 객체를 그때 그때 마다 어떻게 다뤄 주는지 에대한 이야기다. 
+    기본 값은 위에서 설정된 것과 공유되고, 세부 사항만 바뀐다. 
+    위가 initial state 이기 때문에 transition property는 위에서 정해진다.  */
+  
+  
+  
+  
+    &--animated{
+      animation: moveInBottom .5s ease-out .75s; 
+      animation-fill-mode: backwards; 
+    }
+  
+  
+  }
+
+  
+
+
+    .btn-text{
+
+      &:link, 
+      &:visited {
+        font-size: $default-font-size; 
+        color: $color-primary;
+        display: inline-block;
+        text-decoration:none; 
+        border-bottom: 0.1rem solid $color-primary;
+        padding: 0.3rem;
+        transition: all .2s
+      }
+
+      &:hover{
+        background-color:$color-primary;
+        color: $color-white;
+        box-shadow: 0 1rem 2rem rgba($color-black, .15);
+        transform: translateY(-4px);
+      }
+
+      &:active{
+
+        box-shadow: 0 1rem 2rem rgba($color-black, .15);
+        transform: translateY(0);
+      }
+    }

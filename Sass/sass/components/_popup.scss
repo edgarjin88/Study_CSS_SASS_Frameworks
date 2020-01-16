@@ -1,0 +1,106 @@
+
+.popup {
+  height: 100vh;
+  width: 100%; 
+  position: fixed;
+  top:0;
+  left: 0; 
+  background-color: rgba($color-black, .8);
+  z-index: 9999; 
+
+  // display:none;
+  // display: none is not the best way as we cannot animate it. 
+  opacity: 0; 
+  // to animate. 
+  visibility: hidden;
+  transition: all .3s; 
+
+
+  //Open states
+  &:target{
+    // target when we click a button
+    opacity: 1; 
+    visibility: visible; 
+
+  }
+  
+  &:target &__content {
+    opacity: 1; 
+    visibility: visible; 
+    transform: translate(-50%, -50%) scale(1);
+  }
+
+  &__close {
+    &:link, 
+    &:visited {
+      color: $color-grey-dark;
+      position: absolute; 
+      top: 2.5rem;
+      right: 2.5rem;
+      font-size: 3rem;
+      text-decoration: none;
+      display: inline-block; 
+      transition: all .2s; 
+      line-height:1; 
+      
+    }
+
+    &:hover{ 
+      color: $color-primary; 
+    }
+
+  }
+
+
+
+  &__content {
+    @include absCenter;
+    width: 75%; 
+    background-color: $color-white;
+    box-shadow: 0 2rem 4rem rgba($color: $color-black, $alpha: .2);
+    border-radius: 3px; 
+    display: table; 
+    overflow: hidden;
+    // to keep the border-radius;
+    // opacity:0; 
+
+    // you can only have one transform for each decoration block
+    transform: translate(-50%, -50%) scale(.5);
+    // eventhough transform:translate was in the mixin, I have to repeat here again otherwise, only "scale" value would be passed over
+    // and translate value would be 0. 
+
+    transition: all .3s .2s; 
+    //last one is the delay
+  }
+
+  &__left{
+    width: 33.3333%;
+    display:table-cell; 
+    // to make the same height
+  }
+
+  &__right{ 
+    width: 66.66666%;
+    display:table-cell; 
+    // to make the same height
+    vertical-align: middle;
+    // to keep it at the center
+    padding: 3rem 5rem; 
+  }
+
+  &__img{
+    display: block; 
+    width: 100%; 
+  }
+
+  &__text{
+    font-size: 1.4rem;
+    margin-bottom: 4rem;
+    column-count:2; 
+    column-gap: 4rem; 
+    column-rule: 2px solid $color-grey-light-2; 
+    -moz-hyphens: auto;
+    -webkit-hyphens: auto;
+    hyphens: auto;
+  }
+}

@@ -1,0 +1,68 @@
+
+
+*, 
+*::after,
+*::before {
+  margin: 0; 
+  padding: 0; 
+  box-sizing:inherit;
+  text-decoration: none;
+  /* better practice, as it makes it easier for other plugin to update 
+   */
+}
+
+html{
+  font-size: 62.5%;  // 10px/16px = 62.5%. 16px -> 10px
+  /* same as 10 px, defining 1 rem*/
+
+  //this font size would change other EM.
+
+  // @include respond-phone{
+  //   // can pass entire block as if it is an argument
+  //   font-size:50%; 
+  // }
+
+  // @include respond(phone){
+  //   font-size: 50%; 
+  // }
+
+  @include respond(tab-land){ // width < 1200px; 
+    font-size: 56.25%; //1 rem = 1px, 9/16 = 50%
+  }
+
+  
+  @include respond(tab-port){ // width < 900px; 
+    font-size: 50%
+  }
+  
+  // @include respond(phone){ // width < 600px; 
+  //   font-size: 30%
+  // }
+  //order of medica query! Always the larger ones before smaller ones
+  
+  // closest break point + cascading order. 
+  // in Mobile first approach, the order would be the other way around. 
+
+  @include respond(big-desktop){
+    font-size: 75%;  //If you want to fix 1 rem = 12px,   12/16(default pixel size) = 75%
+  }
+  // But, why the biggeset one comes last? 
+  // last one was min-width, not max-width. It would not overwright other options. 
+  //In other words, the code that cover bigger area should be placed before. 
+  //setting up the root font size. 
+  
+}
+
+body {
+  box-sizing: border-box; 
+  padding: 3rem; 
+
+
+  @include respond(tab-port){ // width < 900px; 
+      // If nothing specified, it would be  
+      padding: 0; 
+      // because it is based on max-size, below all other media query would have this effect. 
+  }
+}
+
+
