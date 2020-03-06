@@ -1,0 +1,26 @@
+.container {
+  display: grid;
+  width: 600px;
+}
+
+.fixed-fraction-container {
+}
+
+.fixed-auto-container {
+}
+
+.two-fraction-container {
+}
+
+.two-auto-container {
+  grid-template-columns: auto auto;
+}
+
+.auto-fraction-container {
+  grid-template-columns: auto 1fr;
+  /* will take the content size */
+}
+
+.auto-fraction-auto-container {
+  grid-template-columns: auto 1fr auto;
+}

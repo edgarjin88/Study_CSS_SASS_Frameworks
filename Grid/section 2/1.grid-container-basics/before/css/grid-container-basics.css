@@ -1,0 +1,8 @@
+.container {
+  display: grid;
+}
+
+.inline-container {
+  display: inline-grid;
+  /* only the width of contents */
+}
